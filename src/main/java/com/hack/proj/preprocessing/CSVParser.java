@@ -13,7 +13,7 @@ import java.io.Reader;
 import java.util.*;
 
 public class CSVParser {
-    String filePath;
+    private String filePath;
 
     public CSVParser(String filePath) {
         this.filePath = filePath;

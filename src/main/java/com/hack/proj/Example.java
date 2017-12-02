@@ -6,6 +6,9 @@ import com.hack.proj.preprocessing.Stemmer;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.toList;
 
 public class Example {
     public static void main(String[] args) {
@@ -13,6 +16,9 @@ public class Example {
         try {
             List<Post> posts = csvParser.getAllPosts();
             Stemmer stemmer = new Stemmer("src/main/resources/stoplist.txt");
+            List<List<String>> corpus = posts.stream().map(p -> p.getEnglishTokens(stemmer)).collect(toList());
+
+
             posts.forEach(post -> System.out.println(post.getEnglishTokens(stemmer)));
         } catch (IOException e) {
             e.printStackTrace();
