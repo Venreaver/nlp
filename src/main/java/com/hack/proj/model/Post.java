@@ -1,6 +1,11 @@
 package com.hack.proj.model;
 
+import com.hack.proj.preprocessing.Stemmer;
+import org.apache.lucene.analysis.CharArraySet;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Post {
@@ -21,6 +26,11 @@ public class Post {
         this.tags = tags;
         this.postType = postType;
         this.relatedPost = relatedPost;
+    }
+
+    public List<String> getEnglishTokens(Stemmer stemmer) {
+        EnglishAnalyzer englishAnalyzer = new EnglishAnalyzer(new CharArraySet(stemmer.getStopList(), true));
+        return Stemmer.tokenizeString(englishAnalyzer, body);
     }
 
     public long getId() {
