@@ -1,4 +1,4 @@
-package com.hack.proj;
+package com.hack.proj.model;
 
 import java.util.HashSet;
 import java.util.Set;

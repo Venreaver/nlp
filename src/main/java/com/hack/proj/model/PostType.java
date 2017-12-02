@@ -1,4 +1,4 @@
-package com.hack.proj;
+package com.hack.proj.model;
 
 public enum PostType {
     QUESTION,
