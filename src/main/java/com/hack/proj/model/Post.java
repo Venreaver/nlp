@@ -16,7 +16,7 @@ public class Post {
     private Set<String> tags = new HashSet<>();
     private PostType postType;
     private long relatedPost;
-    private List<String> eglishTokens;
+    private List<String> englishTokens;
 
     public Post() {
     }
@@ -31,11 +31,11 @@ public class Post {
     }
 
     public List<String> getEnglishTokens(Stemmer stemmer) {
-        if (eglishTokens == null) {
+        if (englishTokens == null) {
             EnglishAnalyzer englishAnalyzer = new EnglishAnalyzer(new CharArraySet(stemmer.getStopList(), true));
-            eglishTokens = Stemmer.tokenizeString(englishAnalyzer, body);
+            englishTokens = Stemmer.tokenizeString(englishAnalyzer, body);
         }
-        return eglishTokens;
+        return englishTokens;
     }
 
     public long getId() {
