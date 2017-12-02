@@ -6,6 +6,7 @@ import org.apache.lucene.analysis.en.EnglishAnalyzer;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class Post {
@@ -91,5 +92,23 @@ public class Post {
                 ", postType=" + postType +
                 ", relatedPost=" + relatedPost +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return id == post.id &&
+                relatedPost == post.relatedPost &&
+                Objects.equals(body, post.body) &&
+                Objects.equals(title, post.title) &&
+                Objects.equals(tags, post.tags) &&
+                postType == post.postType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, body, title, tags, postType, relatedPost);
     }
 }
