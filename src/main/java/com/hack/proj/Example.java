@@ -1,26 +1,14 @@
 package com.hack.proj;
 
-import com.hack.proj.model.Post;
-import com.hack.proj.preprocessing.CSVParser;
-import com.hack.proj.preprocessing.Stemmer;
-
-import java.io.IOException;
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 
 public class Example {
     public static void main(String[] args) {
-        CSVParser csvParser = new CSVParser("src/main/resources/Posts.csv");
-        List<Post> posts = null;
-        try {
-            posts = csvParser.getAllPosts();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (posts != null) {
-            Stemmer stemmer = new Stemmer("src/main/resources/stoplist.txt");
-            List<List<String>> corpus = posts.stream().map(p -> p.getEnglishTokens(stemmer)).collect(toList());
-        }
+        SparkSession sparkSession = SparkSession.builder().appName("App").master("local[*]").getOrCreate();
+        Dataset<Row> dataset = sparkSession.read().option("header", true)
+                .option("inferSchema", true).csv("src/main/resources/Posts.csv");
+        dataset.show(5);
     }
 }
