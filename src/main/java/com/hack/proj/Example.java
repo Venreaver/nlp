@@ -21,7 +21,7 @@ public class Example {
         }
         if (posts != null) {
             Stemmer stemmer = new Stemmer("src/main/resources/stoplist.txt");
-            List<List<String>> corpus = posts.stream().map(p -> p.getEnglishTokens(stemmer)).collect(toList());
+            List<List<String>> corpus = posts.stream().parallel().map(p -> p.getEnglishTokens(stemmer)).collect(toList());
             Map<Post, Map<String, Double>> postMap = new HashMap<>(posts.size());
             for (Post post : posts) {
                 List<String> englishTokens = post.getEnglishTokens(stemmer);
